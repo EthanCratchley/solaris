@@ -30,8 +30,6 @@
       "Bash(gh pr merge:*)",
       "Bash(rm -rf:*)",
       "Bash(security find-generic-password:*)",
-      "Read(./.env)",
-      "Read(./.env.*)",
       "Bash(pio run -t upload:*)",
       "Bash(pio run --target upload:*)",
       "Bash(pio device:*)"
