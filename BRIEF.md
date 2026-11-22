@@ -10,6 +10,13 @@ daily energy number: tracker panel Wh − fixed panel Wh − servo Wh.
 - Uploading firmware to the board or anything that needs the hardware wired (Ethan does that).
 - GPS / sun-position tracking, wireless links, cloud dashboards.
 
+## Milestones
+Big checkpoints only (see CLAUDE.md step 7). Also check in early on a major change, a
+major fix, or a major blocker.
+
+- M1: F1–F4 — firmware builds and passes native tests.
+- M2: L1–L3 — Pi logger, energy report and dashboard.
+
 ## Tasks
 Each task: id, what to do, done check. Agents take them in order.
 
