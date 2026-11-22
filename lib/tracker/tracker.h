@@ -30,4 +30,7 @@ int clamp(int value, Limits limits);
 
 Position step(const Reading& reading, Position current, const Config& config);
 
+// One `step` per axis from `current` toward `target` (clamped to the limits), no overshoot.
+Position toward(Position current, Position target, const Config& config);
+
 }  // namespace tracker

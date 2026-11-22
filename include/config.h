@@ -1,5 +1,6 @@
 #pragma once
 
+#include "night.h"
 #include "tracker.h"
 
 // The one place firmware settings live. Values must match HARDWARE.md (checked by
@@ -30,5 +31,15 @@ constexpr unsigned long SETTLE_MS = 40;
 constexpr unsigned long BOOT_SETTLE_MS = 1000;
 
 constexpr tracker::Position START = {90, 90};
+
+constexpr night::Config NIGHT = {
+    50,       // dark: all LDRs below this...
+    100,      // light: ...until any LDR is above this (hysteresis)
+    600000UL, // ...for 10 minutes
+};
+
+// TODO(HARDWARE.md): "east" pan angle is not measured yet; 0° is a placeholder.
+// Tilt 90° is also a placeholder (see QUESTIONS.md F3).
+constexpr tracker::Position PARK = {0, 90};
 
 }  // namespace config

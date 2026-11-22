@@ -2,6 +2,7 @@
 #include <Servo.h>
 
 #include "config.h"
+#include "night.h"
 #include "tracker.h"
 
 static_assert(config::LDR_TOP == A0, "LDR top must be A0 (HARDWARE.md)");
@@ -14,6 +15,7 @@ static Servo tilt;
 static tracker::Position position = config::START;
 static unsigned long moved_at = 0;
 static bool attached = false;
+static night::Night sky;
 
 static void command(tracker::Position target) {
   position = {tracker::clamp(target.pan, config::TRACKER.pan),
@@ -48,7 +50,10 @@ void loop() {
 
   tracker::Reading reading = {analogRead(config::LDR_TOP), analogRead(config::LDR_BOTTOM),
                               analogRead(config::LDR_LEFT), analogRead(config::LDR_RIGHT)};
-  tracker::Position next = tracker::step(reading, position, config::TRACKER);
+  sky = night::update(sky, reading, now, config::NIGHT);
+  tracker::Position next = sky.state == night::State::Parked
+                               ? tracker::toward(position, config::PARK, config::TRACKER)
+                               : tracker::step(reading, position, config::TRACKER);
   if (next.pan == position.pan && next.tilt == position.tilt) return;
   command(next);
 }
