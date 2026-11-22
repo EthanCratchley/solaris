@@ -15,7 +15,7 @@ Each task: id, what to do, done check. Agents take them in order.
 
 - [x] F1: Tracking logic as a pure C++ library (`lib/tracker/`): LDR pairs → pan/tilt step with deadband, angle limits, step size.
       Done when: `pio test -e native` passes tests for each direction, the deadband, and clamping at both limits.
-- [ ] F2: `src/main.cpp`: read 4 LDRs, apply F1, drive servos, detach servos between moves; pins and limits from one config header that matches HARDWARE.md.
+- [x] F2: `src/main.cpp`: read 4 LDRs, apply F1, drive servos, detach servos between moves; pins and limits from one config header that matches HARDWARE.md.
       Done when: `pio run` builds for `uno`; a native test checks that no command outside the HARDWARE.md limits can be produced.
 - [ ] F3: Night parking: when all LDRs are below the dark threshold for N minutes, park facing east; resume at dawn.
       Done when: native tests simulate dusk → night → dawn and check parking and resuming (with hysteresis).
