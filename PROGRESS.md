@@ -2,6 +2,23 @@
 
 <!-- Agents append one entry per task, newest first. -->
 
+## 2026-11-21 — L1
+- Changed: `logger/` package. `stream.parse` validates each serial line strictly (8 fields,
+  ASCII digits only, ranges from docs/serial.md/HARDWARE.md, ≤ 64 chars) → `Status` or None.
+  `power.py`: `PowerSensor` protocol, `Ina219` (reads bus 0x02 / shunt 0x01 registers via an
+  injected smbus2-style bus, writes the default config on init, current = shunt V / ohms),
+  `FakeSensor` (scripted readings/exceptions). `store.py`: SQLite `status` and `power` tables
+  (CHECK constraints, WAL, parameterised inserts, `ts` = Pi Unix seconds). `app.py`:
+  `Logger.line` / `Logger.sample` (1 s interval, an `OSError` on one channel is warned and
+  skipped), `replay`, and `main()` (env `SOLARIS_SERIAL_PORT`, optional `SOLARIS_DB`; pyserial
+  and smbus2 imported lazily, pinned in `logger/requirements.txt`). 46 pytest tests replay a
+  synthetic CRLF stream with garbage/partial/out-of-range lines and fake INA219s, and check
+  the SQLite rows.
+- Next: L2 — daily Wh per channel + net gain from the `power` table.
+- Surprises / notes: no Dockerfile yet (not in L1's done check). `.env.example` is
+  read-denied to agents, so `SOLARIS_DB` isn't listed there (QUESTIONS.md). Fixture is
+  binary (`.gitattributes -text`) to keep CRLF and invalid bytes intact. Stacked on F4.
+
 ## 2026-11-21 — F4
 - Changed: `lib/tracker/report.{h,cpp}`: `report::format` writes one CSV line
   `millis,ldr_top,ldr_bottom,ldr_left,ldr_right,pan,tilt,state` with `snprintf` (no

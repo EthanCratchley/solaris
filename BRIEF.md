@@ -21,7 +21,7 @@ Each task: id, what to do, done check. Agents take them in order.
       Done when: native tests simulate dusk → night → dawn and check parking and resuming (with hysteresis).
 - [x] F4: Serial output: one CSV line per interval (documented in `docs/serial.md`): millis, 4 LDR values, pan, tilt, state.
       Done when: native test checks line format; the format doc matches the test.
-- [ ] L1: Pi logger (`logger/`): read the serial stream and INA219 readings into SQLite; INA219 behind an interface with a fake for tests.
+- [x] L1: Pi logger (`logger/`): read the serial stream and INA219 readings into SQLite; INA219 behind an interface with a fake for tests.
       Done when: `logger/tests` replay a recorded/simulated serial stream and fake INA219 data and check the SQLite rows.
 - [ ] L2: Daily energy report: integrate power to Wh per channel and compute net gain.
       Done when: tests with synthetic power curves check the Wh numbers to within 1%.
