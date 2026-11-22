@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit",
+      "Write",
+      "Bash(./check.sh)",
+      "Bash(python3 -m pytest:*)",
+      "Bash(.venv/bin/python -m pytest:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git switch:*)",
+      "Bash(git checkout -b:*)",
+      "Bash(git pull:*)",
+      "Bash(git push -u origin loop/:*)",
+      "Bash(git push -u origin setup/:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr list:*)",
+      "Bash(pio run)",
+      "Bash(pio run -s)",
+      "Bash(pio test:*)"
+    ],
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git push origin main:*)",
+      "Bash(gh pr merge:*)",
+      "Bash(rm -rf:*)",
+      "Bash(security find-generic-password:*)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Bash(pio run -t upload:*)",
+      "Bash(pio run --target upload:*)",
+      "Bash(pio device:*)"
+    ]
+  }
+}
