@@ -10,3 +10,5 @@ I2C_BUS = 1  # Raspberry Pi header I2C
 BAUD = 115200
 POWER_INTERVAL_S = 1.0
 DEFAULT_DB = "solaris.db"
+# Power samples further apart than this are not bridged when integrating (logger was down).
+MAX_GAP_S = 5.0

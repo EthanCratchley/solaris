@@ -23,7 +23,7 @@ Each task: id, what to do, done check. Agents take them in order.
       Done when: native test checks line format; the format doc matches the test.
 - [x] L1: Pi logger (`logger/`): read the serial stream and INA219 readings into SQLite; INA219 behind an interface with a fake for tests.
       Done when: `logger/tests` replay a recorded/simulated serial stream and fake INA219 data and check the SQLite rows.
-- [ ] L2: Daily energy report: integrate power to Wh per channel and compute net gain.
+- [x] L2: Daily energy report: integrate power to Wh per channel and compute net gain.
       Done when: tests with synthetic power curves check the Wh numbers to within 1%.
 - [ ] L3: Streamlit page: live angles, today's Wh per channel, net gain over days.
       Done when: the page imports and renders against a fixture DB in a smoke test.
