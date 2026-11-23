@@ -19,8 +19,9 @@ doing anything.
    `BRIEF.md`, commit, push the branch, open a PR titled `<task-id>: <summary>`.
    Wait for CI (`gh pr checks --watch`). If it fails, fix it on the branch. When it passes,
    **merge the PR yourself**: `gh pr merge --merge --delete-branch`. The next task starts
-   from the updated `main`, so PRs never stack. If you have older stacked PRs, merge them
-   oldest first (GitHub retargets the next one to `main` when its base branch is deleted).
+   from the updated `main`, so PRs never stack. If older PRs are stacked, merge them oldest
+   first, and before each merge point the next PR at `main` (`gh pr edit <next> --base main`):
+   deleting a base branch makes GitHub close, not retarget, the PRs built on it.
 6. Continue with the next task. There is no task cap.
 7. **Milestone check-in.** A milestone is something big: a finished feature (the milestones
    listed in `BRIEF.md`), a major change or fix, or a major blocker (nothing left you can
