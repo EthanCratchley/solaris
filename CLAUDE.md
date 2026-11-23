@@ -12,11 +12,15 @@ doing anything.
 ## How you work
 
 1. Take the first unchecked task in `BRIEF.md`.
-2. Create a branch `loop/<task-id>-<short-name>` from the latest `main`.
+2. `git switch main && git pull`, then create a branch `loop/<task-id>-<short-name>`.
 3. Make the change. Keep the diff small; don't reformat code you aren't changing.
 4. Run `./check.sh` until it passes. Done means it passes, not that it looks right.
 5. Update `PROGRESS.md` (what changed, what's next, anything surprising), tick the task in
    `BRIEF.md`, commit, push the branch, open a PR titled `<task-id>: <summary>`.
+   Wait for CI (`gh pr checks --watch`). If it fails, fix it on the branch. When it passes,
+   **merge the PR yourself**: `gh pr merge --merge --delete-branch`. The next task starts
+   from the updated `main`, so PRs never stack. If you have older stacked PRs, merge them
+   oldest first (GitHub retargets the next one to `main` when its base branch is deleted).
 6. Continue with the next task. There is no task cap.
 7. **Milestone check-in.** A milestone is something big: a finished feature (the milestones
    listed in `BRIEF.md`), a major change or fix, or a major blocker (nothing left you can
@@ -42,7 +46,8 @@ particular, in this repo:
 
 ## Never
 
-- Commit to `main`, force-push, or merge your own PR.
+- Commit or push directly to `main`, or force-push. Changes reach `main` only by merging a
+  PR whose `./check.sh` and CI pass.
 - Print, log, or commit secrets, or put them in PR text. You may read `.env` and
   `.env.example` to use configuration, but never echo the values. Keys live in `.env`
   (gitignored) or the macOS Keychain; `.env.example` lists names only.
