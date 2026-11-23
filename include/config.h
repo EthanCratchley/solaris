@@ -32,6 +32,9 @@ constexpr unsigned long BOOT_SETTLE_MS = 1000;
 
 constexpr tracker::Position START = {90, 90};
 
+constexpr unsigned long BAUD = 115200;
+constexpr unsigned long REPORT_INTERVAL_MS = 1000;  // one CSV line per second
+
 constexpr night::Config NIGHT = {
     50,       // dark: all LDRs below this...
     100,      // light: ...until any LDR is above this (hysteresis)

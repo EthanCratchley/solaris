@@ -2,6 +2,19 @@
 
 <!-- Agents append one entry per task, newest first. -->
 
+## 2026-11-21 — F4
+- Changed: `lib/tracker/report.{h,cpp}`: `report::format` writes one CSV line
+  `millis,ldr_top,ldr_bottom,ldr_left,ldr_right,pan,tilt,state` with `snprintf` (no
+  `String`), returns 0 and empties the buffer if it does not fit. `docs/serial.md` documents
+  columns, ranges, 115200 baud, `\r\n` endings. `main.cpp` now reads LDRs every loop and
+  prints a line every 1000 ms (`config::BAUD`, `config::REPORT_INTERVAL_MS`).
+  `test_report` (8 tests) checks exact lines, widest line, truncation/exact-fit, and reads
+  `docs/serial.md` to confirm its header and example lines match the formatter.
+- Next: L1 — Pi logger parsing this format.
+- Surprises / notes: `LINE_MAX` collides with a POSIX `<limits.h>` macro → named
+  `LINE_SIZE`. Native env gets `-D PROJECT_DIR` so the test can open the doc. RAM went
+  66 → 296 B (Serial buffers). Stacked on `loop/F3-night-parking`.
+
 ## 2026-11-21 — F3
 - Changed: `lib/tracker/night.{h,cpp}`: pure `night::update` state machine (Tracking/Parked).
   Parks after all LDRs < 50 continuously for 10 min (any LDR ≥ 50 restarts the timer);

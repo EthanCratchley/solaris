@@ -26,7 +26,7 @@ Each task: id, what to do, done check. Agents take them in order.
       Done when: `pio run` builds for `uno`; a native test checks that no command outside the HARDWARE.md limits can be produced.
 - [x] F3: Night parking: when all LDRs are below the dark threshold for N minutes, park facing east; resume at dawn.
       Done when: native tests simulate dusk → night → dawn and check parking and resuming (with hysteresis).
-- [ ] F4: Serial output: one CSV line per interval (documented in `docs/serial.md`): millis, 4 LDR values, pan, tilt, state.
+- [x] F4: Serial output: one CSV line per interval (documented in `docs/serial.md`): millis, 4 LDR values, pan, tilt, state.
       Done when: native test checks line format; the format doc matches the test.
 - [ ] L1: Pi logger (`logger/`): read the serial stream and INA219 readings into SQLite; INA219 behind an interface with a fake for tests.
       Done when: `logger/tests` replay a recorded/simulated serial stream and fake INA219 data and check the SQLite rows.
