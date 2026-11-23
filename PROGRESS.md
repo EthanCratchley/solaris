@@ -2,6 +2,20 @@
 
 <!-- Agents append one entry per task, newest first. -->
 
+## 2026-11-21 — L2
+- Changed: `logger/energy.py`: `integrate` (trapezoidal Wh over a window; segments longer
+  than `MAX_GAP_S` = 5 s are not bridged; segments crossing midnight are cut by linear
+  interpolation), `daily(db, day)` → `Report(tracker_wh, fixed_wh, servo_wh, net_wh)` with
+  net = tracker − fixed − servo, `all_days(db)`, and a read-only CLI
+  `python -m logger.energy [db]` printing CSV. Days are the Pi's local calendar days
+  (DST-aware) unless a `tz` is passed — no timezone committed. 21 tests with synthetic
+  curves (constant, half-sine day, ramps, servo duty cycle, gaps, midnight split, timezone
+  shift, negative net, missing channel, CLI) check Wh to within 1%.
+- Next: L3 — Streamlit page (live angles, today's Wh, net gain over days).
+- Surprises / notes: `all_days` lists every calendar day from first to last sample, so a
+  lone sample at 00:00:00 creates a (near-zero) day — my first fixture tripped on this.
+  Negative INA219 noise at night is integrated as-is (≈ 0 net). Stacked on L1.
+
 ## 2026-11-21 — L1
 - Changed: `logger/` package. `stream.parse` validates each serial line strictly (8 fields,
   ASCII digits only, ranges from docs/serial.md/HARDWARE.md, ≤ 64 chars) → `Status` or None.
