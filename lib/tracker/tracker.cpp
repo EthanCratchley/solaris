@@ -22,4 +22,15 @@ Position step(const Reading& reading, Position current, const Config& config) {
   return {clamp(pan, config.pan), clamp(tilt, config.tilt)};
 }
 
+static int approach(int from, int to, int step) {
+  if (to > from) return from + step < to ? from + step : to;
+  if (to < from) return from - step > to ? from - step : to;
+  return from;
+}
+
+Position toward(Position current, Position target, const Config& config) {
+  return {clamp(approach(current.pan, clamp(target.pan, config.pan), config.step), config.pan),
+          clamp(approach(current.tilt, clamp(target.tilt, config.tilt), config.step), config.tilt)};
+}
+
 }  // namespace tracker

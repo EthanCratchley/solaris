@@ -2,6 +2,18 @@
 
 <!-- Agents append one entry per task, newest first. -->
 
+## 2026-11-21 — F3
+- Changed: `lib/tracker/night.{h,cpp}`: pure `night::update` state machine (Tracking/Parked).
+  Parks after all LDRs < 50 continuously for 10 min (any LDR ≥ 50 restarts the timer);
+  resumes when any LDR > 100, stays parked in the 50–100 band. Unsigned millis maths, so
+  wraparound is safe. `tracker::toward` moves one step per interval toward a target (clamped,
+  no overshoot) so parking is a gentle sweep, not a 180° jump. `config::NIGHT`, `config::PARK`
+  added; `main.cpp` picks `toward(PARK)` vs `step` from the night state. `test_night`: 16 tests
+  incl. thresholds, hysteresis, timer reset, wraparound and a dusk → night → dawn simulation.
+- Next: F4 — serial CSV output + `docs/serial.md` (state column can use `night::State`).
+- Surprises / notes: park pan 0° and park tilt 90° are TODO placeholders (east not measured;
+  tilt not specified) — in QUESTIONS.md. Stacked on `loop/F2-firmware-main`.
+
 ## 2026-11-21 — F2
 - Changed: `include/config.h` holds all firmware settings (pins, limits, deadband, step,
   50 ms move interval, 40 ms settle, start 90/90). `src/main.cpp` reads the 4 LDRs, applies

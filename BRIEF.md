@@ -24,7 +24,7 @@ Each task: id, what to do, done check. Agents take them in order.
       Done when: `pio test -e native` passes tests for each direction, the deadband, and clamping at both limits.
 - [x] F2: `src/main.cpp`: read 4 LDRs, apply F1, drive servos, detach servos between moves; pins and limits from one config header that matches HARDWARE.md.
       Done when: `pio run` builds for `uno`; a native test checks that no command outside the HARDWARE.md limits can be produced.
-- [ ] F3: Night parking: when all LDRs are below the dark threshold for N minutes, park facing east; resume at dawn.
+- [x] F3: Night parking: when all LDRs are below the dark threshold for N minutes, park facing east; resume at dawn.
       Done when: native tests simulate dusk → night → dawn and check parking and resuming (with hysteresis).
 - [ ] F4: Serial output: one CSV line per interval (documented in `docs/serial.md`): millis, 4 LDR values, pan, tilt, state.
       Done when: native test checks line format; the format doc matches the test.
