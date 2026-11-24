@@ -1,3 +1,5 @@
-# Runtime dependencies on the Pi (tests need only pytest).
+# Runtime dependencies on the Pi. CI installs these too (the dashboard test needs
+# streamlit); hardware libraries are imported lazily, so they're never used in tests.
 pyserial==3.5
-smbus2==0.5.1
+smbus2==0.5.0
+streamlit==1.66.1

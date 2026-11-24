@@ -12,5 +12,5 @@ jobs:
         with:
           path: ~/.platformio
           key: pio-${{ hashFiles('platformio.ini') }}
-      - run: pip install platformio pytest
+      - run: pip install platformio pytest -r logger/requirements.txt
       - run: ./check.sh
