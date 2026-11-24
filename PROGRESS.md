@@ -2,6 +2,32 @@
 
 <!-- Agents append one entry per task, newest first. -->
 
+## Milestone check-in — M2 (L1–L3: Pi logger, energy report, dashboard)
+- Works now: every task in BRIEF.md is ticked. Firmware (F1–F4) builds for `uno` and passes
+  45 native tests; the logger records serial status + 3× INA219 into SQLite, `logger.energy`
+  reports daily Wh and net gain, and `logger/dashboard.py` shows it live. `./check.sh`: 74
+  pytest + 45 native tests pass.
+- PRs to review: L3 (this one). Earlier PRs #2, #4–#7, #10 are merged.
+- Open questions (QUESTIONS.md): servo direction on the mount (F1), park tilt + measured east
+  pan angle (F3), INA219 shunt value (L1), servo-channel current range (L1), `SOLARIS_DB` in
+  `.env.example` (L1).
+- Next: nothing left in BRIEF.md. Likely follow-ups once hardware is wired: a Dockerfile /
+  compose for the Pi (logger + dashboard), real calibration values, a first field run.
+
+## 2026-11-23 — L3
+- Changed: `logger/dashboard.py` Streamlit page (`python -m streamlit run logger/dashboard.py`
+  from the repo root; DB from `SOLARIS_DB`, opened read-only via a percent-escaped
+  `file:` URI). Live section (latest pan/tilt/state/age, last-hour angle chart, today's Wh
+  per channel and net) refreshes every 5 s as an `st.fragment`; net gain over days is a bar
+  chart + table from `energy.all_days`. Missing DB → error, no file created; empty DB →
+  placeholders. `test_dashboard.py` (7 tests, `streamlit.testing.v1.AppTest`) renders it
+  against a synthetic fixture DB and checks metric values, the days table, parked state,
+  empty/missing DB, URI characters in the path, and that the page never writes the DB.
+- Next: milestone M2 — all tasks ticked.
+- Surprises / notes: `smbus2==0.5.1` (pinned in L1) doesn't exist on PyPI — the pin was never
+  installed anywhere. Fixed to `0.5.0`. CI now installs `logger/requirements.txt` (streamlit
+  1.66.1 pinned); `pip-audit` reports no known vulnerabilities.
+
 ## 2026-11-21 — L2
 - Changed: `logger/energy.py`: `integrate` (trapezoidal Wh over a window; segments longer
   than `MAX_GAP_S` = 5 s are not bridged; segments crossing midnight are cut by linear

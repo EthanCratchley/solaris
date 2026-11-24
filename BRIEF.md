@@ -32,7 +32,7 @@ Each task: id, what to do, done check. Agents take them in order.
       Done when: `logger/tests` replay a recorded/simulated serial stream and fake INA219 data and check the SQLite rows.
 - [x] L2: Daily energy report: integrate power to Wh per channel and compute net gain.
       Done when: tests with synthetic power curves check the Wh numbers to within 1%.
-- [ ] L3: Streamlit page: live angles, today's Wh per channel, net gain over days.
+- [x] L3: Streamlit page: live angles, today's Wh per channel, net gain over days.
       Done when: the page imports and renders against a fixture DB in a smoke test.
 
 Hardware to buy is in agent-hq HUMAN-TASKS.md.
